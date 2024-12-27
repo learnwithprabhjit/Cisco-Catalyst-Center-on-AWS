@@ -3,6 +3,7 @@ How to Deploy Cisco Catalyst Center on AWS
 
 Catalyst Center (Formerly Cisco DNA Center) Virtual Appliance (VA) on AWS is available for early-access customers starting now.  Now you can deploy Catalyst Center on the cloud or on-premises for enterprise and branch.  Use your existing licenses to deploy the virtual appliances on AWS and take advantage of the faster deployment, High Availability, and ability to scale out easily across all available AWS regions across the globe.  
 Video explaining how to deploy with Auto mode:  http://cs.co/va-launchpad
+
 Video explaining how to deploy with Manual mode: http://cs.co/va-manual
 
 Form Factor
