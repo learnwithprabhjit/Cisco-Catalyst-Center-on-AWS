@@ -1,5 +1,6 @@
 Download the file here: https://software.cisco.com/download/home/286316341/type/286318832/release/VA%20Launchpad%202.0.0
 
+Watch video on how to deploy CloudFormation Template: http://cs.co/va-manual
 
 AWSTemplateFormatVersion: 2010-09-09
 Description: Cisco Catalyst Center 2.3.7.6 Instance Deployment template which comes along with the CCO version 2.0.0
