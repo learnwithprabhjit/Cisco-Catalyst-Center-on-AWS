@@ -1,0 +1,160 @@
+Download the file here: https://software.cisco.com/download/home/286316341/type/286318832/release/VA%20Launchpad%202.0.0
+
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: Cisco Catalyst Center 2.3.7.6 Instance Deployment template which comes along with the CCO version 2.0.0
+Metadata: 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups: 
+      - Label: 
+          default: EC2 Instance Configuration
+        Parameters: 
+          - EnvironmentName
+          - PrivateSubnet1ID
+          - SecurityGroup
+          - Keypair      
+      - Label: 
+          default: Cisco Catalyst Center Configuration
+        Parameters: 
+          - CatalystCenterInstanceIP
+          - CatalystCenterNetmask
+          - CatalystCenterGateway
+          - CatalystCenterDnsServer
+          - CatalystCenterPassword
+          - CatalystCenterFQDN
+          - CatalystCenterHttpsProxy
+          - CatalystCenterHttpsProxyUsername
+          - CatalystCenterHttpsProxyPassword
+
+Mappings:
+  RegionMap:
+    us-west-1:
+      CatalystCenter: "ami-04581c0954527a2f5"
+    ap-south-1:
+      CatalystCenter: "ami-07485e862164f326d"
+    eu-central-1:
+      CatalystCenter: "ami-0fa7805ddb7fc499e"
+    ap-southeast-2:
+      CatalystCenter: "ami-0575952d1ff2cc022"
+    ap-southeast-1:
+      CatalystCenter: "ami-00b5bc52d24c09f12"
+    us-east-1:
+      CatalystCenter: "ami-0028fe42e8d42234c"
+    ap-northeast-1: 
+      CatalystCenter: "ami-08ad4bd10d070c09a"  
+    us-east-2: 
+      CatalystCenter: "ami-011ea8960d9266ab3"  
+    ca-central-1:
+      CatalystCenter: "ami-03c57cfff0af7fd85"  
+    eu-west-2:
+      CatalystCenter: "ami-0e3d36b0ed7ac30c5" 
+    eu-south-1:
+      CatalystCenter: "ami-0be6aa7f3c5be37db"
+    us-west-2:
+      CatalystCenter: "ami-080cdcf6ee76059d9" 
+    eu-west-1:
+      CatalystCenter: "ami-08a54e16cf62ba31f" 
+    eu-west-3:
+      CatalystCenter: "ami-0bc76a7a77134fa22" 
+    ap-northeast-2:
+      CatalystCenter: "ami-0ec2a639f930691b7" 
+
+Parameters:
+  EnvironmentName:
+    Description: String that will be prefixed to AWS resource names
+    Type: String
+  PrivateSubnet1ID:
+    Description: VPC Subnet to use for Cisco Catalyst Center
+    Type: AWS::EC2::Subnet::Id
+    AllowedPattern: .+
+  CatalystCenterInstanceIP:
+    Description: Cisco Catalyst Center IP Address
+    Type: String
+    AllowedPattern: .+
+  Keypair:
+    Description: SSH Keypair for Cisco Catalyst Center
+    Type: AWS::EC2::KeyPair::KeyName
+    AllowedPattern: .+
+  CatalystCenterNetmask:
+    Description: Cisco Catalyst Center Netmask
+    Type: String
+    AllowedPattern: .+
+  CatalystCenterGateway:
+    Description: Cisco Catalyst Center Gateway Address
+    Type: String
+    AllowedPattern: .+
+  CatalystCenterDnsServer:
+    Description: Enterprise DNS Server
+    Type: String
+    AllowedPattern: .+
+  CatalystCenterFQDN:
+    Description: Cisco Catalyst Center FQDN
+    Type: String
+    AllowedPattern: .+
+  CatalystCenterPassword:
+    Description: Cisco Catalyst Center Password
+    Type: String
+    NoEcho : true
+    MinLength: 8
+    AllowedPattern: '^(?:(?=.*\d)(?=.*[\W_])(?=.*[A-Z])|(?=.*\d)(?=.*[\W_])(?=.*[a-z])|(?=.*\d)(?=.*[a-z])(?=.*[A-Z])|(?=.*[a-z])(?=.*[\W_])(?=.*[A-Z]))[A-Za-z\d\W_]{8,}$'
+    ConstraintDescription: "Password must contain characters from at least three of the following classes: lowercase letters, uppercase letters, digits, and special characters. Minimum of 8 characters."
+  CatalystCenterHttpsProxy:
+    Description: Enterprise HTTPS Proxy (optional)
+    Type: String
+  CatalystCenterHttpsProxyUsername:
+    Description: HTTPS Proxy Username (optional)
+    Type: String
+  CatalystCenterHttpsProxyPassword:
+    Description: HTTPS Proxy Password (optional)
+    Type: String
+    NoEcho : true 
+  SecurityGroup:
+    Description: Security Group to Attach to Cisco Catalyst Center
+    Type: AWS::EC2::SecurityGroup::Id
+    AllowedPattern: .+
+    ConstraintDescription: Security group cannot be empty
+
+Resources: 
+  CatalystCenterInstance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", CatalystCenter]
+      InstanceType: r5a.8xlarge
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeType: gp3
+            VolumeSize: 4096
+            DeleteOnTermination: true
+            Encrypted: true
+      SecurityGroupIds: 
+        - !Ref SecurityGroup
+      KeyName: !Ref Keypair 
+      SubnetId: !Ref PrivateSubnet1ID
+      PrivateIpAddress: !Ref CatalystCenterInstanceIP
+      Tags:
+        - Key: Name
+          Value: !Sub '${EnvironmentName}_VA_Cisco_Catalyst_Center_Instance'
+      UserData:
+        'Fn::Base64': !Sub |
+           #cloud-config
+           write_files:
+            - content: |
+                {
+                  "IPaddress": "${CatalystCenterInstanceIP}",
+                  "netmask": "${CatalystCenterNetmask}",
+                  "gateway": "${CatalystCenterGateway}",
+                  "dns_servers": ["${CatalystCenterDnsServer}"],
+                  "fqdn" : "${CatalystCenterFQDN}",
+                  "https_proxy" : "${CatalystCenterHttpsProxy}",
+                  "https_proxy_username" : "${CatalystCenterHttpsProxyUsername}",
+                  "https_proxy_password" : "${CatalystCenterHttpsProxyPassword}",
+                  "ntp": ["169.254.169.123"],
+                  "password" : "${CatalystCenterPassword}"
+                }
+              path: /etc/cloud.json
+
+Outputs:
+  CatalystCenterInstance:
+    Description: Cisco Catalyst Center Instance ID
+    Value: !Ref CatalystCenterInstance
