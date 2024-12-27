@@ -1,0 +1,84 @@
+Q: What is the difference between Cisco DNA Center and Catalyst Center?
+A: The Cisco DNA Center solution has been renamed, and now is called Catalyst Center. Same product, new name. 
+
+Q. What is Cisco Catalyst Center Virtual Appliance (VA) on AWS?  
+A. Cisco Catalyst Center VA on AWS is the same Cisco Catalyst Center on-premises advanced software-defined network controller and analytics engine that thousands of customers are already using to manage and operate their Cisco Catalyst enterprise networks. The Cisco Catalyst Center VA software has been optimized to operate on the AWS public cloud so that the features and controls function just like they do on the on-premises version. Cisco Catalyst Center VA can now be deployed on a customer’s AWS virtual private server (VPS) allowing easy login access to all IT team members, regardless of their location.  
+
+Q. Why would a company deploy Cisco Catalyst Center VA on AWS Cloud?  
+A. Distributed business operations is the new norm, so companies are migrating to cloud-driven applications to support this. IT is moving to a new paradigm in their operations in order to deliver users this optimal connected experience wherever they are and whenever they need it. IT is migrating to a cloud-driven operational model based on four important pillars.  
+
+Agility: Manage any branch from anywhere, at any time, with the ability to troubleshoot, deploy, and scale from wherever you are.  
+Insight: Get on-the-go assurance for insights into how the network is performing, with app visibility, 360-degree views, time travel, and remediation for quick solutions.   
+Control: Leverage the full capabilities of your investment in the Catalyst 9000 family, with powerful Cisco DNA software and a virtual form factor-based network controller. Manage your existing installed base of legacy Cisco switches and wireless devices; over 500 supported: https://content.cisco.com/compatibilitymatrix.html  
+Empowerment: Use guided workflows that allow even level 1 technicians to perform complex tasks, such as creating new sites and policies.  
+Q. What is the difference between the features in Cisco Catalyst Center on-premises and Cisco Catalyst Center VA on AWS Cloud?  
+A. Cisco Catalyst Center VA on AWS Cloud has exactly the same features and provides an identical IT user experience to the on-premises version. For more information on Cisco Catalyst Center VA, refer to these documents:  
+Cisco DNA Center Solution Overview 
+Cisco DNA Center FAQ 
+Cisco DNA Center Datasheet 
+
+Q. What is the difference between the scale and capacity in Cisco Catalyst Center on-premises and Cisco Catalyst Center VA on AWS Cloud?  
+A. The scale of the two systems is theoretically identical. However, in this first release, we will only be supporting the scale of the on-premises medium (44 core) appliance. Generally speaking, this is 1,000 devices (switch, router, wireless controller), 4,000 access points, and 25,000 endpoints. In future releases, we will be supporting the greater scale of the large (56 core) and extra-large (112 core) appliances.  For a more detailed listing of the scale please refer to the Cisco DNA Center datasheet Appliance scale. 
+
+Q. What does Cisco Catalyst Center VA on AWS Cloud cost?  
+A. The software for Cisco Catalyst Center on AWS is provided at no cost to our customers. Cisco Catalyst Center is included with your Cisco DNA Essentials and Cisco DNA Advantage software subscription.  
+
+Q. What are the usage charges from AWS for Cisco Catalyst Center VA on AWS Cloud?  
+A. Each case is a little different, but here are some drivers of cost for running Cisco Catalyst Center VA in your AWS environment: 
+1. Region: AWS costs can vary from region to region. (E.g. use-east-1 vs eu-central-1) 
+2. Compute: Reserved instance of r5a.8xlarge machine type is required to guarantee CPU and Memory to the virtual machine. 
+3. EBS Storage: Reserve at least 4TB of storage with 2500+ IOPS and 180Mbps or IOPS Bandwidth (GP3 EBS). EBS storage accrues charges based on the capacity used, even when EC2  virtual machine is shut down or deleted. EBS storage needs to be deleted separately from EC2 instance deletion to stop charges. Backing up Catalyst Center VA in AWS may add to storage costs.  
+4. Bandwidth: Outbound traffic from AWS cloud to external destinations is chargeable by AWS, such as: Backing up Catalyst Center to offsite/corporate data center. Large number of SW Image push from cloud to on-prem devices. The overall cost will depend on the customer's EDP pricing. These points are illustrated examples only, not an exhaustive list of cost drivers. 
+
+To model the cost, use the AWS Cost Calculator: https://calculator.aws/#/addService/EC2  
+
+Q. Will Cisco Catalyst Center VA on AWS Cloud be available worldwide?  
+A. Eventually yes. but for now we are offering the solution in North America, Europe, and Asia:
+ap-northeast-1 (Tokyo)
+ap-northeast-2 (Seoul)
+ap-south-1 (Mumbai)
+ap-southeast-1 (Singapore)
+ap-southeast-2 (Sydney)
+ca-central-1 (Canada)
+eu-central-1 (Frankfurt)
+eu-south-1 (Milan)
+eu-west-1 (Ireland)
+eu-west-2 (London)
+eu-west-3 (Paris)
+us-east-1 (Virginia)
+us-east-2 (Ohio)
+us-west-1 (N. California)
+us-west-2 (Oregon)
+Q. Does Cisco Catalyst Center VA on AWS support High Availability (HA)? 
+A, Yes! Cisco Catalyst Center Virtual Appliance (VA) is provisioned as a single-node Amazon EC2 instance within a designated Availability Zone (AZ) on the AWS cloud platform. Each AWS Availability Zone is a robust network of data centers equipped with redundant power, networking, and connectivity, ensuring high resilience and stability.
+
+In the event that the Catalyst Center EC2 instance experiences a failure, AWS's infrastructure is engineered to automatically initialize a replacement instance. This automated recovery mechanism requires no manual intervention on the part of the customer. The recovery process and the associated Recovery Time Objective (RTO) are comparable to the experience of a power disruption impacting a physical, bare-metal Catalyst Center appliance.
+
+This architectural design significantly reduces operational costs for customers by negating the need for a traditional three-node Catalyst Center VA deployment to achieve High Availability. Through AWS's robust infrastructure, customers benefit from cost savings while still maintaining high levels of availability and reliability for their Catalyst Center operations.
+
+Q. Where can I get started?  
+A. Please place an order for the $0 PID on Cisco Commerce.  You can consult the Cisco DNA Center Virtual Appliance Ordering Guide for detailed instructions.  Then proceed by subscribing to the Virtual Appliance offering on the AWS Marketplace listing page.  
+
+Q. Can I migrate my Cisco Catalyst Center on-premises installation to AWS Cloud?  
+A. Yes! Make sure you are running on a medium, 44 core, UCS appliance (DN-1-HW-APL or DN-2-HW-APL). Upgrade your Cisco Catalyst Center on-premises software to version that you will be deploying on AWS Cloud. Backup your on-premises server, then restore this backup to your AWS Cloud install.   
+
+Q. How can Cisco Catalyst Center VA on AWS Cloud accelerate my organization’s digital transformation?  
+A. By making networks more virtualized and programmable, Cisco Catalyst Center VA allows quick changes to keep enterprise networks in sync with business process requirements, allowing quick introductions, modifications, and deletions of business applications. Cisco Catalyst Center VA exposes APIs that enable integration with external applications. Using these APIs, these applications can further automate networks to keep pace with changing business needs. This is particularly useful to organizations that are transforming themselves digitally and require their networks to be agile and support rapid changes.  
+
+Q. Does Cisco Catalyst Center VA on AWS Cloud replace Cisco Prime® Infrastructure?  
+A. Cisco Catalyst Center on-premises and Cisco Catalyst Center on AWS Cloud are the replacement upgrades for Cisco Prime Infrastructure. 
+
+Q. Will my network devices still operate if the Cisco Catalyst Center VA on AWS Cloud goes down? 
+A. Yes! It will keep its configuration. You won’t be able to change the configuration while the cloud is down, but your network will still operate without any downtime. 
+
+Q. What types of managed services could be offered using Cisco Catalyst Center VA on AWS Cloud?  
+A. The current version of Cisco Catalyst Center on AWS Cloud does not support the offering of managed services.  
+
+Q. Are any Cisco Services available for Cisco Catalyst Center VA on AWS Cloud?  
+A. As your intent-based networking journey continues, Cisco Services helps you extract relevant network data and insights with customized software and integrations that simplify network operations and lower operating costs. In support of Cisco Catalyst Center VA on AWS Cloud capabilities, Cisco Services provides advisory, implementation, software integration, and optimization services, solution support, and technical training. Our Cisco Services experts will help you achieve extraordinary business outcomes and anticipate change so you can pivot quickly, securely, and confidently. View all services.   
+
+Q. How often will the features in Cisco Catalyst Center VA on AWS Cloud be updated? 
+A. Features will be updated with the same cadence as the on-premises version. You will be notified within the Cisco Catalyst Center VA dashboard when new features are added, with links to training material. 
+
+Q. For a customer who has been using Cisco Catalyst Center On-premises version, does he need to buy separate Catalyst Center VA licenses on top of that for him to manage the network device using Cisco Catalyst Center VA on AWS Cloud? 
+A. No, you do not. If you have a Cisco DNA License (Essentials, or Advantage) you can use this for either the Virtual Appliance (VA) or on-premises version. 
